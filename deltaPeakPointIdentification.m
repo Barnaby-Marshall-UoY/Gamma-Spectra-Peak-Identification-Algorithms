@@ -30,7 +30,7 @@ firstDifference = countDifference./energyDifference;
 %Cleaning firstDifference data, removing all data points with magnitude bellow the backgroundReductionCoefficent%
 
 for k=1:numel(firstDifference)
-    if abs(firstDifference(k,1))<backgroudReductionCoefficent(importedSpectrum)
+    if abs(firstDifference(k,1))<backgroundReductionCoefficient(importedSpectrum)
         firstDifference(k,1) = 0;
     end
 end
