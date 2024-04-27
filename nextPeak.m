@@ -7,22 +7,32 @@ function [initialLowerBound, initialUpperBound, modifiedDeltaOut] = nextPeak(imp
 
     initialPeakWidth = peakWidth(importedSpectrum);
 
-    
-    densityArray = zeros(numel(modifiedDelta)-initialPeakWidth,1);
+    if numel(modifiedDelta)>= initialPeakWidth +1
+        densityArray = zeros(numel(modifiedDelta)-initialPeakWidth,1);
         
-    for i=1:numel(modifiedDelta)-initialPeakWidth   
-        densityArray(i) = densityFunction(modifiedDelta,i,i+initialPeakWidth);
-    end
+        for i=1:numel(modifiedDelta)-initialPeakWidth   
+            densityArray(i) = densityFunction(modifiedDelta,i,i+initialPeakWidth);
+        end
     
-    tempInitialLowerBound = find(densityArray == max(densityArray));
-    initialLowerBound = tempInitialLowerBound(1);
-    initialUpperBound = initialLowerBound + initialPeakWidth;
+        tempInitialLowerBound = find(densityArray == max(densityArray));
+        initialLowerBound = tempInitialLowerBound(1);
+        initialUpperBound = initialLowerBound + initialPeakWidth;
         
-    %re outputting the input modifiedDelta to be used as the array input for the modifyDelta function. i.e. whats left of the spectrum%
+        %re outputting the input modifiedDelta to be used as the array input for the modifyDelta function. i.e. whats left of the spectrum%
 
-    modifiedDeltaOut = zeros(numel(modifiedDelta),1);
-    for j=1:numel(modifiedDelta)       
-        modifiedDeltaOut(j) = modifiedDelta(j);
+        modifiedDeltaOut = zeros(numel(modifiedDelta),1);
+        for j=1:numel(modifiedDelta)       
+            modifiedDeltaOut(j) = modifiedDelta(j);
+        end
+
+    else
+        initialLowerBound =0;
+        initialUpperBound =0;
+
+        modifiedDeltaOut = zeros(numel(modifiedDelta),1);
+        for j=1:numel(modifiedDelta)       
+            modifiedDeltaOut(j) = modifiedDelta(j);
+        end
     end
 
 end
