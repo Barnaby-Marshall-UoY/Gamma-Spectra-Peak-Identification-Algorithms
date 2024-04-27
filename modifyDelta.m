@@ -1,4 +1,4 @@
-%prevModDelta = the previous modified delta used, i.e. whats left of the spectrum%
+ %prevModDelta = the previous modified delta used, i.e. whats left of the spectrum%
 
 function [modifiedDelta] = modifyDelta(peakLB,peakUB,prevModDelta)
 
@@ -16,7 +16,13 @@ function [modifiedDelta] = modifyDelta(peakLB,peakUB,prevModDelta)
     for j=peakUB:numel(prevModDelta)
         modifiedDelta(j-peakUB+peakLB+1) = prevModDelta(j);
     end
+    
+    %for i=1:numel(prevModDelta)
+        %modifiedDelta(i) = prevModDelta(i);
+    %end
 
-
+    %for j=peakLB:peakUB
+        %modifiedDelta(j) = 0;
+    %end
 
 end

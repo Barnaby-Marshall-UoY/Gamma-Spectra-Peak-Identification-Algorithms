@@ -2,7 +2,7 @@
 %Inputs: a .txt, .dat, .csv, .xls, .xlsb, .xlsm, .xltm, .xltx or .ods file.%
 %Outputs: Outputs an array of linear gradients between adjcent points in the inputted data sets with magnitude above 
 %the backgroundReductionCoefficent and the indices of these data points positions in the original data set.%
-function [firstDiff,firstDifferenceIndices] = deltaPeakPointIdentification(importedSpectrum)
+function [firstDiff,firstDifferenceIndices,firstDifferenceUnclean] = deltaPeakPointIdentification(importedSpectrum)
 
 %Calling the importData function to read the energy channel values and count values from the spectrum%
 
@@ -14,6 +14,7 @@ function [firstDiff,firstDifferenceIndices] = deltaPeakPointIdentification(impor
 countDifference = zeros(numel(countTable)-1,1);
 energyDifference = zeros(numel(countTable)-1,1);
 firstDifference = zeros(numel(countTable)-1,1);
+firstDifferenceUnclean = zeros(numel(countTable)-1,1);
 
 %Calculating the difference between neighborirng values in each imported array%
 %Ammending these values into the arrays created above%
@@ -26,11 +27,12 @@ end
 %Ammending the firstDifference array with the gradient estimations%
 
 firstDifference = countDifference./energyDifference;
+firstDifferenceUnclean = countDifference./energyDifference;
 
 %Cleaning firstDifference data, removing all data points with magnitude bellow the backgroundReductionCoefficent%
 
 for k=1:numel(firstDifference)
-    if abs(firstDifference(k,1))<backgroundReductionCoefficient(importedSpectrum)
+    if abs(firstDifference(k,1))<backgroundReductionCoefficent(importedSpectrum)
         firstDifference(k,1) = 0;
     end
 end

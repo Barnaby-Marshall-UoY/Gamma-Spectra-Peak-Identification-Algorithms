@@ -1,5 +1,9 @@
+%Peak Width is estimated as 20 peaks per spectrum.%
+
 function [width] = peakWidth(importedSpectrum)
 
-width = 50;
+
+[~,C] = importData(importedSpectrum);
+width = round(numel(C)/20);
 
 end
